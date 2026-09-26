@@ -1,0 +1,2 @@
+import 'express-async-errors'; import express from 'express'; import helmet from 'helmet'; import cors from 'cors'; import morgan from 'morgan'; import routes from './routes'; import { errorHandler } from './utils/http';
+export const app=express(); app.use(helmet());app.use(cors({origin:process.env.CORS_ORIGIN?.split(',')||'*'}));app.use(express.json({limit:'20kb'}));app.use(morgan('combined'));app.get('/health',(_,res)=>res.json({status:'ok'}));app.use('/api/v1',routes);app.use(errorHandler);
